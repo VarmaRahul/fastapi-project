@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:16-alpine  # Alpine is the smallest version, saving disk and RAM
+    container_name: fastapi-db
+    environment:
+      POSTGRES_USER: rahul_admin
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: ultimate_platform
+    ports:
+      - "5432:5432"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'        # Use max 50% of a single CPU core
+          memory: 256M       # Cap RAM at 256MB (Postgres runs fine on this for dev)
+        reservations:
+          memory: 128M       # Minimum RAM to reserve
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

@@ -1,5 +1,9 @@
 from fastapi import FastAPI
 from app.router import users, orders
+from app.database import engine, Base
+
+# This line creates the tables in Postgres if they don't exist
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="GitOps Platform API")
 
