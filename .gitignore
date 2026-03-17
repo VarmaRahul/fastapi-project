@@ -1,3 +1,16 @@
+# Basic
 __pycache__/
 .venv/
+
+# Secrets and Config
 .env
+.vscode/
+
+# Python compiled files
+*.py[cod]
+*\$py.class
+
+# OS junk
+.DS_Store
+Thumbs.db
+EOF
