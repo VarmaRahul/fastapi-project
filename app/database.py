@@ -1,10 +1,10 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from app.config import settings
 
-# The URL format: postgresql://user:password@host:port/dbname
-# Since your DB is on the same machine (via Docker), host is 'localhost'
-SQLALCHEMY_DATABASE_URL = "postgresql://rahul_admin:password123@localhost:5432/ultimate_platform"
+# Use the setting instead of a hardcoded string
+SQLALCHEMY_DATABASE_URL = settings.db_connection
 
 # The Engine is the starting point for any SQLAlchemy app
 engine = create_engine(SQLALCHEMY_DATABASE_URL)

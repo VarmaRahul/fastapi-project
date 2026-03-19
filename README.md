@@ -1,85 +1,86 @@
-# Ultimate FastAPI GitOps Platform
+🚀 Ultimate FastAPI GitOps Platform
+A production-grade FastAPI application designed to demonstrate Senior DevOps and SRE principles, including modular architecture, containerization, stateless authentication, and observability.
 
-A production-grade FastAPI application designed to demonstrate Senior DevOps and SRE principles, including modular architecture, containerization, CI/CD, Infrastructure as Code (Terraform), and Kubernetes orchestration.
+🛠️ Tech Stack & Tools
+Backend: FastAPI (Python 3.12+), Pydantic v2
 
-## 🚀 Project Overview
-This platform serves as a comprehensive demonstration of a modern cloud-native stack. It is built with a focus on scalability, observability, and automated deployments.
+Security: JWT (Stateless Auth), Password Hashing (passlib + bcrypt)
 
-Key focuses include:
-- **FastAPI** for high-performance microservices.
-- **PostgreSQL** for relational data management.
-- **Docker & Kubernetes** for container orchestration (AWS EKS).
-- **Terraform** for Infrastructure as Code (IaC).
-- **GitHub Actions** for CI/CD and GitOps.
+Database: PostgreSQL 16 (Relational Mapping via SQLAlchemy)
 
-## 📁 Project Structure
-```text
+Containerization: Docker & Docker Compose (Multi-container orchestration)
+
+Observability: Health & Readiness Probes (SRE standard)
+
+📁 Project Structure
+Plaintext
 ├── app/
-│   ├── __init__.py
-│   ├── main.py           # Application entry point & router inclusion
-│   ├── database.py       # DB connection & session logic
-│   ├── models/           # Pydantic schemas & SQLAlchemy models
-│   └── router/           # Modular API endpoints (Users, Orders, etc.)
-├── .gitignore            # Git exclusion rules
-├── requirements.txt      # Python dependencies
-└── README.md             # Project documentation
+│   ├── main.py            # App entry point & Lifespan handlers
+│   ├── database.py        # Connection pooling & Session logic
+│   ├── config.py          # Pydantic Settings & Env validation
+│   ├── oauth2.py          # JWT authentication middleware
+│   ├── models/            
+│   │   ├── models.py      # SQLAlchemy DB Models (Users, Orders)
+│   │   └── schemas.py     # Pydantic Schemas (Request/Response)
+│   └── router/            # Modular API routes
+├── Dockerfile             # Multi-stage optimized build
+├── docker-compose.yml     # Orchestration with resource limits
+├── .env                   # Environment secrets (Git-ignored)
+├── requirements.txt       # Frozen dependencies
+└── README.md
+⚙️ Local Development (The DevOps Way)
+1. Environment Configuration
+Create a .env file in the root directory:
 
-
-🛠️ Tech Stack
-Language: Python 3.12+
-
-Framework: FastAPI
-
-Validation: Pydantic
-
-Server: Uvicorn
-
-Database: PostgreSQL (Planned)
-
-Infrastructure: AWS (EKS, RDS, S3)
-
-⚙️ Local Setup
-Clone the repository:
+Plaintext
+DB_USER=rahul_admin
+DB_PASSWORD=yourpassword
+DB_NAME=ultimate_platform
+SECRET_KEY=your_64_bit_secret
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+2. Run with Docker Compose (Recommended)
+This launches the API and PostgreSQL in an isolated network with resource limits (CPU: 0.5, RAM: 256MB).
 
 Bash
-git clone [https://github.com/yourusername/fastapi-project.git](https://github.com/yourusername/fastapi-project.git)
-cd fastapi-project
-Create and activate a virtual environment:
+docker compose up -d --build
+API: http://localhost:8000
 
+Swagger Docs: http://localhost:8000/docs
+
+Health Check: http://localhost:8000/health
+
+3. Manual Setup (Virtual Env)
 Bash
 python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-Install dependencies:
-
-Bash
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-Run the development server:
-
-Bash
 uvicorn app.main:app --reload
-The API will be available at http://localhost:8000
-
 📡 Core API Endpoints
-GET /health: SRE Liveness probe (Check if app is running).
+POST /users/ - Create a new user (hashed passwords).
 
-GET /ready: SRE Readiness probe (Check if DB/Services are connected).
+POST /login - Returns JWT bearer token.
 
-GET /users/me: Current user profile.
+GET /users/me - Protected profile route.
 
-GET /docs: Interactive Swagger API documentation.
+POST /orders/ - Create a relational order (mapped to current user).
+
+GET /health - Liveness probe.
+
+GET /ready - Readiness probe (checks DB connectivity).
 
 📈 Project Roadmap
 [x] Phase 1: Project Initialization & Modular Routing.
 
-[ ] Phase 2: Database Integration (PostgreSQL & SQLAlchemy).
+[x] Phase 2: Database Integration (PostgreSQL & SQLAlchemy Relationships).
 
-[ ] Phase 3: Containerization (Docker & Docker Compose).
+[x] Phase 3: Containerization (Docker, Docker Compose, & Healthchecks).
 
 [ ] Phase 4: Testing & CI (Pytest & GitHub Actions).
 
-[ ] Phase 5: Kubernetes Fundamentals (EKS).
+[ ] Phase 5: Kubernetes Fundamentals (EKS Deployment).
 
-[ ] Phase 6: Infrastructure as Code (Terraform).
+[ ] Phase 6: Infrastructure as Code (Terraform for RDS/EKS).
 
 [ ] Phase 7: GitOps & Deployment (ArgoCD/Helm).
 
