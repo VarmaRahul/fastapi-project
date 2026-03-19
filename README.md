@@ -55,16 +55,16 @@ ACCESS_TOKEN_EXPIRE_MINUTES=30
 docker compose up -d --build
 ```
 
-**API: http://localhost:8000**
-**Swagger Docs: http://localhost:8000/docs**
-**Health Checks: /health (Liveness) & /ready (Readiness)**
+**API: http://localhost:8000** <br>
+**Swagger Docs: http://localhost:8000/docs** <br>
+**Health Checks: /health (Liveness) & /ready (Readiness)** <br>
 
-## 📈 Project Roadmap
-**[x] Phase 1: Project Initialization & Modular Routing.**
-**[x] Phase 2: Database Integration (PostgreSQL & SQLAlchemy).**
-**[x] Phase 3: Containerization (Docker, Compose & Resource Limits).**
-**[x] Phase 4: DevSecOps & CI (Pytest, CodeQL, Trivy, Docker Hub).**
-**[ ] Phase 5: Kubernetes Fundamentals (Deployment, Services, Ingress).**
-**[ ] Phase 6: Infrastructure as Code (Terraform for AWS/EKS).**
-**[ ] Phase 7: GitOps & Continuous Deployment (ArgoCD/Helm).**
-**[ ] Phase 8: Monitoring & SRE (Prometheus/Grafana).**
+## 📈 Project Roadmap <br>
+**[x] Phase 1: Project Initialization & Modular Routing.** <br>
+**[x] Phase 2: Database Integration (PostgreSQL & SQLAlchemy).** <br>
+**[x] Phase 3: Containerization (Docker, Compose & Resource Limits).** <br>
+**[x] Phase 4: DevSecOps & CI (Pytest, CodeQL, Trivy, Docker Hub).** <br>
+**[ ] Phase 5: Kubernetes Fundamentals (Deployment, Services, Ingress).** <br>
+**[ ] Phase 6: Infrastructure as Code (Terraform for AWS/EKS).** <br>
+**[ ] Phase 7: GitOps & Continuous Deployment (ArgoCD/Helm).** <br>
+**[ ] Phase 8: Monitoring & SRE (Prometheus/Grafana).** <br>
