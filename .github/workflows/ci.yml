@@ -84,4 +84,4 @@ jobs:
           # 'push: true' tells it to upload the image to Docker Hub after building
           push: true
           # 'tags' defines the name and version of your image
-          tags: your-dockerhub-user/fastapi-app:${{ github.sha }}
+          tags: rahulvarma/fastapi-app:${{ github.sha }}

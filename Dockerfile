@@ -2,8 +2,8 @@
 FROM python:3.12-slim
 
 # 2. Set environment variables to prevent Python from buffering logs
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
 # 3. Set the working directory inside the container
 WORKDIR /code
