@@ -1,0 +1,54 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    # We need a database for our tests! 
+    # GitHub Actions can run "Services" (Sidecar containers)
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: rahul_admin
+          POSTGRES_PASSWORD: password123
+          POSTGRES_DB: ultimate_platform_test
+        ports:
+          - 5432:5432
+        # Wait for postgres to be ready
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/checkout@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest httpx  # Tools for API testing
+
+      - name: Run Tests
+        env:
+          # Tell the tests to talk to the GitHub Actions Postgres service
+          DB_CONNECTION: postgresql://rahul_admin:password123@localhost:5432/ultimate_platform_test
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          ALGORITHM: HS256
+          ACCESS_TOKEN_EXPIRE_MINUTES: 30
+        run: |
+          pytest
