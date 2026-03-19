@@ -22,29 +22,39 @@ The project utilizes GitHub Actions to enforce a strict security and quality gat
 
 ## 📁 Project Structure
 ```text
-├── .github/workflows/           # DevSecOps Pipeline (ci.yml) ✓
-├── .venv/                       # Python Virtual Environment ✓
-├── __pycache__/                 # Python Cache (Ignore) 
-├── app/                         # Core FastAPI Application ✓
-│   ├── __init__.py              # Package init ✓
+├── .github/workflows/           # DevSecOps Pipeline (ci.yml)
+├── .venv/                       # Python Virtual Environment
+├── __pycache__/                 # Python Cache (Ignore)
+├── app/                         # Core FastAPI Application
+│   ├── __init__.py              # Package init
 │   ├── __pycache__/             # App cache
-│   ├── config.py                # Pydantic Settings ✓
-│   ├── database.py              # DB Connection pooling ✓
-│   ├── main.py                  # App entry point ✓
-│   ├── models/                  # SQLAlchemy Models ✓
-│   ├── oauth2.py                # JWT Auth middleware ✓
-│   ├── router/                  # API Routes ✓
-│   └── utils.py                 # Utility functions ✓
-├── tests/                       # Pytest suite ✓
-├── .env                         # Environment secrets ✓
-├── .env.example                 # Env template ✓
-├── .git/                        # Git repository ✓
-├── .gitignore                   # Git ignore rules ✓
-├── docker-compose.yml           # Docker orchestration ✓
-├── Dockerfile                   # Multi-stage build ✓
-├── LICENSE                      # Project license ✓
-├── README.md                    # Documentation ✓
-└── requirements.txt             # Python dependencies ✓
+│   ├── config.py                # Pydantic Settings
+│   ├── database.py              # DB Connection pooling
+│   ├── main.py                  # App entry point
+│   ├── models/                  # SQLAlchemy Models
+│   │   ├── __init__.py          # Package init
+│   │   ├── __pycache__/         # Models cache
+│   │   ├── models.py            # Base models
+│   │   └── schemas.py           # Pydantic schemas
+│   ├── oauth2.py                # JWT Auth middleware
+│   ├── router/                  # API Routes
+│   │   ├── __init__.py          # Package init
+│   │   ├── __pycache__/         # Router cache
+│   │   ├── auth.py              # Auth endpoints
+│   │   ├── orders.py            # Orders endpoints
+│   │   └── users.py             # Users endpoints
+│   └── utils.py                 # Utility functions
+├── tests/                       # Pytest suite
+├── .env                         # Local environment secrets
+├── .env.example                 # Env template
+├── .git/                        # Git repository
+├── .gitignore                   # Git ignore rules
+├── docker-compose.yml           # Docker orchestration
+├── Dockerfile                   # Multi-stage build
+├── LICENSE                      # Project license
+├── README.md                    # Documentation
+└── requirements.txt             # Python dependencies
+
 ```
 
 ## ⚙️ Local Development
