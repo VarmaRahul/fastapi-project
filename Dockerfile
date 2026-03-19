@@ -9,7 +9,11 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /code
 
 # 4. Install system dependencies (needed for some Python packages)
-RUN apt-get update && apt-get install -y gcc libpq-dev && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        gcc \
+        libpq-dev && \
+    rm -rf /var/lib/apt/lists/*
 
 # 5. Copy and install Python dependencies
 COPY requirements.txt .
