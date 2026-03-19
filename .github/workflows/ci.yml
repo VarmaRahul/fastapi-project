@@ -49,9 +49,12 @@ jobs:
         env:
           # Tell the tests to talk to the GitHub Actions Postgres service
           PYTHONPATH: .
-          DB_CONNECTION: postgresql://rahul_admin:password123@localhost:5432/ultimate_platform_test
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          DB_USER: rahul_admin
+          DB_NAME: ultimate_platform_test
           ALGORITHM: HS256
           ACCESS_TOKEN_EXPIRE_MINUTES: 30
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          DB_CONNECTION: postgresql://rahul_admin:${{ secrets.DB_PASSWORD }}@localhost:5432/ultimate_platform_test
         run: |
           pytest
