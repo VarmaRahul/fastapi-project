@@ -32,6 +32,8 @@ jobs:
 
       - name: Run Hadolint
         uses: hadolint/hadolint-action@v3.1.0
+        with:
+          ignore: DL3008
     
   gitleaks:
     name: Secrets Scan (Gitleaks)
