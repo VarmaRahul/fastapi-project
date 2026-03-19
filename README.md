@@ -22,19 +22,29 @@ The project utilizes GitHub Actions to enforce a strict security and quality gat
 
 ## 📁 Project Structure
 ```text
-├── .github/workflows/      # DevSecOps Pipeline (ci.yml)
-├── app/
-│   ├── main.py            # App entry point & Lifespan handlers
-│   ├── database.py        # Connection pooling & Session logic
-│   ├── config.py          # Pydantic Settings (Env validation)
-│   ├── oauth2.py          # JWT authentication middleware
-│   ├── models/            # SQLAlchemy Models (Users, Orders)
-│   ├── router/            # Modular API routes (Auth, Users, Orders)
-│   └── schemas/           # Pydantic Request/Response schemas
-├── tests/                 # Pytest suite
-├── Dockerfile             # Multi-stage optimized & linted build
-├── docker-compose.yml     # Orchestration with resource limits
-└── .env                   # Environment secrets (Git-ignored)
+├── .github/workflows/           # DevSecOps Pipeline (ci.yml) ✓
+├── .venv/                       # Python Virtual Environment ✓
+├── __pycache__/                 # Python Cache (Ignore) 
+├── app/                         # Core FastAPI Application ✓
+│   ├── __init__.py              # Package init ✓
+│   ├── __pycache__/             # App cache
+│   ├── config.py                # Pydantic Settings ✓
+│   ├── database.py              # DB Connection pooling ✓
+│   ├── main.py                  # App entry point ✓
+│   ├── models/                  # SQLAlchemy Models ✓
+│   ├── oauth2.py                # JWT Auth middleware ✓
+│   ├── router/                  # API Routes ✓
+│   └── utils.py                 # Utility functions ✓
+├── tests/                       # Pytest suite ✓
+├── .env                         # Environment secrets ✓
+├── .env.example                 # Env template ✓
+├── .git/                        # Git repository ✓
+├── .gitignore                   # Git ignore rules ✓
+├── docker-compose.yml           # Docker orchestration ✓
+├── Dockerfile                   # Multi-stage build ✓
+├── LICENSE                      # Project license ✓
+├── README.md                    # Documentation ✓
+└── requirements.txt             # Python dependencies ✓
 ```
 
 ## ⚙️ Local Development
