@@ -48,6 +48,7 @@ jobs:
       - name: Run Tests
         env:
           # Tell the tests to talk to the GitHub Actions Postgres service
+          PYTHONPATH: .
           DB_CONNECTION: postgresql://rahul_admin:password123@localhost:5432/ultimate_platform_test
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ALGORITHM: HS256
