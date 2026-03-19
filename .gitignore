@@ -14,3 +14,13 @@ __pycache__/
 .DS_Store
 Thumbs.db
 EOF
+
+# System/Crash files
+*.stackdump
+*.log
+*.tmp
+
+# Windows thumb caches
+Thumbs.db
+ehthumbs.db
+Desktop.ini
