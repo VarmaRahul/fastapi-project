@@ -24,23 +24,23 @@ jobs:
         run: ruff check .
   
   dockerfile-lint:
-  name: Dockerfile Lint
-  runs-on: ubuntu-latest
-
-  steps:
-    - uses: actions/checkout@v4
-
-    - name: Run Hadolint
-      uses: hadolint/hadolint-action@v3.1.0
-  
-  gitleaks:
-    name: Secrets Scan (Gitleaks)
+    name: Dockerfile Lint
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
-      - name: Run Gitleaks
-        uses: gitleaks/gitleaks-action@v2
+      - name: Run Hadolint
+        uses: hadolint/hadolint-action@v3.1.0
+    
+    gitleaks:
+      name: Secrets Scan (Gitleaks)
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+
+        - name: Run Gitleaks
+          uses: gitleaks/gitleaks-action@v2
   
   sast-codeql:
     name: SAST (CodeQL)
