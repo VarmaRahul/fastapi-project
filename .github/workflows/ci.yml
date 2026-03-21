@@ -89,7 +89,7 @@ jobs:
 
   build-test:
     name: build-test
-    needs: [lint, dockerfile-lint, dependency-license-scan]
+    #needs: [lint, dockerfile-lint, dependency-license-scan]
     runs-on: ubuntu-latest
     
     # We need a database for our tests! 
@@ -145,7 +145,7 @@ jobs:
         run: docker build -t xedose/fastapi-app:${{ github.sha }} .
 
       - name: Scan Image (Trivy)
-        uses: aquasecurity/trivy-action@0.20.0
+        uses: aquasecurity/trivy-action@v0.35.0
         continue-on-error: true
         with:
           image-ref: xedose/fastapi-app:${{ github.sha }}

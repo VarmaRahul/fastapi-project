@@ -1,6 +1,6 @@
 resource "aws_key_pair" "deployer" {
   key_name   = "terra-key-ec2"
-  public_key = file("terra-key-ec2.pub")
+  public_key = file("./terra-key-ec2.pub")
 }
 
 resource "aws_default_vpc" "default" {
@@ -80,10 +80,10 @@ resource "aws_security_group_rule" "my-sg-rule-out1" {
   description = "Outbound Internet access"
 }
 
+
 resource "aws_instance" "my_instance" {
   for_each = tomap({
     Instance1 = "c7i-flex.large"
-    #Instance2 = "t3.micro"
   })
 
   key_name = aws_key_pair.deployer.key_name
@@ -106,28 +106,6 @@ resource "aws_instance" "my_instance" {
   depends_on = [ aws_security_group.my-sg, aws_key_pair.deployer ]
 }
 
-# resource "local_file" "foo" {
-#   filename        = "services"
-#   file_permission = "0700"
-#   content = <<-EOF
-# This file is created with terraform on ${timestamp()}.
-# ------------------------------------------------------
-# Service Configuration Details:
-
-# ${join("\n",[ for key,instance in aws_instance.my_instance: 
-# "Instance key:  ${key}\nInstance ID:  ${instance.id}\nInstance Name: ${instance.tags.Name}\nDept: ${instance.tags.Dept}"])}
-
-# VPC ID: ${aws_default_vpc.default.id}
-# VPC Name: ${aws_default_vpc.default.tags.Name}
-# Security Group ID: ${aws_security_group.my-sg.id}
-# Security Group Name: ${aws_security_group.my-sg.name}
-# Key Pair Name: ${aws_key_pair.deployer.key_name}
-
-# The file permissions are set to 0700.
-# EOF
-# }
-
-
 resource "null_resource" "copy_files" {
 
   for_each = aws_instance.my_instance
@@ -137,7 +115,7 @@ resource "null_resource" "copy_files" {
     type        = "ssh"
     host        = each.value.public_ip
     user        = "ec2-user"
-    private_key = file("./terra-key-ec2")
+    private_key = file("./ec2-key-pair")
   }
 
   # Copy install script
