@@ -1,0 +1,39 @@
+name: Infra - Destroy
+
+on:
+  workflow_dispatch:        # only triggered manually, never on push
+
+jobs:
+  terraform-destroy:
+    name: Terraform Destroy
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+
+      - name: Terraform Init
+        run: terraform init       # connects to S3 backend, reads existing state
+
+      - name: Terraform Destroy
+        run: |
+          terraform destroy -auto-approve \
+            -target=aws_instance.my_instance \
+            -target=aws_key_pair.deployer \
+            -target=aws_security_group.my_sg
+        env:
+          TF_VAR_private_key: ${{ secrets.EC2_SSH_KEY }}
