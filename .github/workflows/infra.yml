@@ -1,0 +1,43 @@
+name: Infra - Provision
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "terraform/**"
+      - "**/*.tf"
+  workflow_dispatch:
+
+jobs:
+  terraform:
+    name: Terraform Apply
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform init        # reads state from S3, no local state
+
+      - name: Terraform Plan
+        run: terraform plan
+        env:
+          TF_VAR_private_key: ${{ secrets.EC2_SSH_KEY }}
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        env:
+          TF_VAR_private_key: ${{ secrets.EC2_SSH_KEY }}

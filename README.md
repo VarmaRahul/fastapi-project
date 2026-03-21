@@ -88,3 +88,15 @@ docker compose up -d --build
 **[ ] Phase 6: Infrastructure as Code (Terraform for AWS/EKS).** <br>
 **[ ] Phase 7: GitOps & Continuous Deployment (ArgoCD/Helm).** <br>
 **[ ] Phase 8: Monitoring & SRE (Prometheus/Grafana).** <br>
+
+
+Push to main
+     │
+     ├──► ci.yml        → lint → test → build → scan → push image to DockerHub
+     │
+     ├──► infra.yml     → only if terraform/** changed
+     │         └── terraform init (reads S3 state) → plan → apply
+     │                  state is saved back to S3, EC2_HOST stays stable
+     │
+     └──► deploy.yml    → triggers after ci.yml succeeds
+               └── SSH into EC2 → docker compose pull → up -d
