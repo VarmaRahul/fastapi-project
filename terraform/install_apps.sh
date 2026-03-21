@@ -1,23 +1,21 @@
 #!/bin/bash
 
-#install nginx
-sudo yum install nginx -y
+# Install nginx
+sudo dnf install -y nginx
 sudo systemctl start nginx
 sudo systemctl enable nginx
 
-#install docker
-sudo apt-get update
-sudo apt-get install -y docker.io
-sudo chmod 666 /var/run/docker.sock
-#sudo usermod -aG docker $USER
-#newgrp docker
-sudo systemctl enable docker
+# Install docker
+sudo dnf install -y docker
 sudo systemctl start docker
+sudo systemctl enable docker
+
+# Fix docker permissions
+sudo chmod 666 /var/run/docker.sock
+
+# Install docker-compose (plugin method - recommended)
+sudo dnf install -y docker-compose-plugin
+
+# Verify
 docker --version
-
-#install docker compose
-sudo apt install -y docker-compose
-docker-compose version
-
-
-#sudo echo "<h1> This server is built from Terraform </h1>" | sudo tee /usr/share/nginx/html/index.html
+docker compose version

@@ -238,8 +238,8 @@ jobs:
 
             export IMAGE_TAG=${{ github.sha }}
 
-            docker-compose pull
-            docker-compose up -d
+            docker compose pull
+            docker compose up -d
       
       
 
