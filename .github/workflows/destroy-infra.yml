@@ -31,9 +31,6 @@ jobs:
 
       - name: Terraform Destroy
         run: |
-          terraform destroy -auto-approve \
-            -target=aws_instance.my_instance \
-            -target=aws_key_pair.deployer \
-            -target=aws_security_group.my_sg
+          terraform destroy -auto-approve
         env:
           TF_VAR_private_key: ${{ secrets.EC2_SSH_KEY }}
