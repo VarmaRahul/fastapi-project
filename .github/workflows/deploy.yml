@@ -33,6 +33,10 @@ jobs:
             ACCESS_TOKEN_EXPIRE_MINUTES=30
             EOF
 
+            # Always pull latest compose file from repo
+            curl -fsSL "https://raw.githubusercontent.com/${{ github.repository }}/main/docker-compose.yml" \
+            -o docker-compose.yml
+
             docker compose pull
             docker compose up -d
 
