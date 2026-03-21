@@ -115,7 +115,7 @@ resource "null_resource" "copy_files" {
     type        = "ssh"
     host        = each.value.public_ip
     user        = "ec2-user"
-    private_key = file("./ec2-key-pair")
+    private_key = var.private_key
   }
 
   # Copy install script

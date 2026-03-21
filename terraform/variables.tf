@@ -10,5 +10,8 @@ variable "root_volume_size" {
     default = 20
 }
 
-
-
+variable "private_key" {
+  description = "Private key for EC2 SSH"
+  type        = string
+  sensitive   = true
+}
