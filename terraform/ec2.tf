@@ -136,7 +136,7 @@ resource "null_resource" "copy_files" {
 
   # Copy docker-compose.yml
   provisioner "file" {
-    source      = "./docker-compose.yml"
+    source      = "../docker-compose.yml"
     destination = "/home/ec2-user/docker-compose.yml"
   }
 
