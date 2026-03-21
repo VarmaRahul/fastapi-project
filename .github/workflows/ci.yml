@@ -103,13 +103,13 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build Image
-        run: docker build -t xedose/fastapi-app:${{ github.sha }} .
+        run: docker build -t xedose/fastapi-app:latest .
       - name: Scan Image (Trivy)
         uses: aquasecurity/trivy-action@v0.35.0
         continue-on-error: true
         with:
-          image-ref: xedose/fastapi-app:${{ github.sha }}
+          image-ref: xedose/fastapi-app:latest
           format: table
           severity: CRITICAL,HIGH
       - name: Push Image
-        run: docker push xedose/fastapi-app:${{ github.sha }}
+        run: docker push xedose/fastapi-app:latest

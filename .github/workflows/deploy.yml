@@ -5,11 +5,6 @@ on:
     workflows: ["CI - Build & Push"]
     types: [completed]
     branches: ["main"]
-  workflow_dispatch:
-    inputs:
-      image_tag:
-        description: "Image tag (git SHA) to deploy"
-        required: true
 
 jobs:
   deploy:
@@ -18,15 +13,6 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
 
     steps:
-      - name: Resolve Image Tag
-        id: tag
-        run: |
-          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
-            echo "IMAGE_TAG=${{ inputs.image_tag }}" >> $GITHUB_ENV
-          else
-            echo "IMAGE_TAG=${{ github.event.workflow_run.head_sha }}" >> $GITHUB_ENV
-          fi
-
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -45,7 +31,6 @@ jobs:
             SECRET_KEY=${{ secrets.SECRET_KEY }}
             ALGORITHM=HS256
             ACCESS_TOKEN_EXPIRE_MINUTES=30
-            IMAGE_TAG=${{ github.event.workflow_run.head_sha || github.sha }}
             EOF
 
             docker compose pull
