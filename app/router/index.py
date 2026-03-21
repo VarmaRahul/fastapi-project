@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-router = APIRouter(prefix="/", tags=["home"])
+router = APIRouter(tags=["home"])
 
 @router.get("/")
 def health_check():
