@@ -90,7 +90,7 @@ resource "aws_instance" "my_instance" {
   key_name = "terra-key-ec2"
   vpc_security_group_ids = [aws_security_group.my-sg.id]
   instance_type = each.value
-  ami = "ami-019c927fb527c7c37" #Amazon Linux 2023 kernel-6.1 AMI
+  ami = "ami-0f559c3642608c138" #Amazon Linux 2023 kernel-6.1 AMI (64-bit (x86), uefi-preferred)
   availability_zone = "ap-south-1a"
   root_block_device {
     volume_size = var.env == "prod" ? 30 : var.root_volume_size
