@@ -28,7 +28,8 @@ services:
 
   # The FastAPI Service
   api:
-    build: .
+    #build: .
+    image: xedose/fastapi-app
     container_name: fastapi-app
     ports:
       - "8000:8000"
