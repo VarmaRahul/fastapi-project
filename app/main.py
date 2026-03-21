@@ -2,7 +2,7 @@ from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 from app.database import engine, Base
-from app.router import users, auth, orders
+from app.router import users, auth, orders, index
 from app.database import get_db
 import logging
 from contextlib import asynccontextmanager
@@ -47,6 +47,7 @@ def ready_check(db: Session = Depends(get_db)):
         raise HTTPException(status_code=503, detail="Database not reachable")
 
 # Include Routers
+app.include_router(index.router)
 app.include_router(auth.router)
 app.include_router(users.router)
 app.include_router(orders.router)

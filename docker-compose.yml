@@ -40,6 +40,9 @@ services:
           cpus: '0.5'
           memory: 512M
     environment:
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
       - DB_CONNECTION=postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
       - SECRET_KEY=${SECRET_KEY}
       - ALGORITHM=${ALGORITHM}
