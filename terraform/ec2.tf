@@ -1,7 +1,7 @@
-resource "aws_key_pair" "deployer" {
-  key_name   = "terra-key-ec2"
-  public_key = file("./terra-key-ec2.pub")
-}
+# resource "aws_key_pair" "deployer" {
+#   key_name   = "terra-key-ec2"
+#   public_key = file("./terra-key-ec2.pub")
+# }
 
 resource "aws_default_vpc" "default" {
   tags = {
@@ -86,7 +86,8 @@ resource "aws_instance" "my_instance" {
     Instance1 = "c7i-flex.large"
   })
 
-  key_name = aws_key_pair.deployer.key_name
+  #key_name = aws_key_pair.deployer.key_name
+  key_name = "terra-key-ec2"
   vpc_security_group_ids = [aws_security_group.my-sg.id]
   instance_type = each.value
   ami = "ami-019c927fb527c7c37" #Amazon Linux 2023 kernel-6.1 AMI
@@ -103,7 +104,8 @@ resource "aws_instance" "my_instance" {
     Name = each.key
     Dept = "Operations"
   }
-  depends_on = [ aws_security_group.my-sg, aws_key_pair.deployer ]
+  #depends_on = [ aws_security_group.my-sg, aws_key_pair.deployer ]
+  depends_on = [ aws_security_group.my-sg ]
 }
 
 resource "null_resource" "copy_files" {
