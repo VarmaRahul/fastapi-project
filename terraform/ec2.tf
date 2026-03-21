@@ -140,13 +140,13 @@ resource "null_resource" "copy_files" {
     private_key = file("./terra-key-ec2")
   }
 
-  # Step 1: Copy script
+  # Copy install script
   provisioner "file" {
     source      = "./install_apps.sh"
     destination = "/tmp/install_apps.sh"
   }
 
-  # Step 2: Execute script
+  # Install nginx and docker
   provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/install_apps.sh",
@@ -154,5 +154,25 @@ resource "null_resource" "copy_files" {
     ]
   }
 
+  # Copy docker-compose.yml
+  provisioner "file" {
+    source      = "./docker-compose.yml"
+    destination = "/home/ec2-user/docker-compose.yml"
+  }
+
+  # Copy nginx config
+  provisioner "file" {
+    source      = "./default.conf"
+    destination = "/tmp/default.conf"
+  }
+
+  # Apply nginx config
+  provisioner "remote-exec" {
+    inline = [
+      "sudo mv /tmp/default.conf /etc/nginx/conf.d/default.conf",
+      "sudo nginx -t",
+      "sudo systemctl restart nginx"
+    ]
+  }
 }
 

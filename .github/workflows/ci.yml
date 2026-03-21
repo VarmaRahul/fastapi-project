@@ -225,11 +225,12 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd ~
-            docker pull xedose/fastapi-app:${{ github.sha }}
-            docker stop fastapi-app || true
-            docker rm fastapi-app || true
-            docker run -d -p 8000:8000 --name fastapi-app xedose/fastapi-app:${{ github.sha }}
+            cd /home/ec2-user
+
+            export IMAGE_TAG=${{ github.sha }}
+
+            docker-compose pull
+            docker-compose up -d
       
       
 

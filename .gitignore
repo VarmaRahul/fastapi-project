@@ -24,3 +24,28 @@ EOF
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+
+# Terraform directory
+terraform/.terraform/
+
+# Terraform state files
+terraform/*.tfstate
+terraform/*.tfstate.*
+
+# Crash logs
+terraform/crash.log
+terraform/crash.*.log
+
+# Sensitive variable files
+terraform/*.tfvars
+terraform/*.tfvars.json
+
+# CLI config
+terraform/.terraformrc
+terraform/terraform.rc
+
+# Override files
+terraform/override.tf
+terraform/override.tf.json
+terraform/*_override.tf
+terraform/*_override.tf.json
