@@ -11,10 +11,10 @@ WORKDIR /code
 # 4. Install system dependencies (needed for some Python packages)
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    apt-get install -y curl \
+        curl \
         gcc \
-        libpq-dev && \
-    rm -rf /var/lib/apt/lists/*
+        libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 # 5. Copy and install Python dependencies
 COPY requirements.txt .
