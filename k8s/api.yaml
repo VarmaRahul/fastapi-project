@@ -16,7 +16,7 @@ spec:
       containers:
       - name: fastapi
         image: xedose/fastapi-app:local
-        imagePullPolicy: Never
+        imagePullPolicy: Always
         ports:
         - containerPort: 8000
         resources:
