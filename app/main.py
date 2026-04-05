@@ -6,11 +6,7 @@ from app.router import users, auth, orders, index
 from app.database import get_db
 import logging
 from contextlib import asynccontextmanager
-
-# This line creates the tables in Postgres if they don't exist
-Base.metadata.create_all(bind=engine)
-
-app = FastAPI(title="GitOps Platform API")
+from prometheus_fastapi_instrumentator import Instrumentator
 
 # 1. Setup Structured Logging
 logging.basicConfig(level=logging.INFO)
@@ -20,17 +16,24 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # --- Startup Logic ---
-    logger.info("🚀 Ultimate Platform API is starting up...")
-    logger.info("Connecting to PostgreSQL...")
+    logger.info("🚀 GitOps Platform API is starting up...")
+    
+    # Initialize Prometheus metrics collection
+    Instrumentator().instrument(app).expose(app)
+    
+    # Create tables if they don't exist
+    Base.metadata.create_all(bind=engine)
     
     yield  # This is where the app runs
     
     # --- Shutdown Logic ---
-    logger.info("🛑 Ultimate Platform API is shutting down...")
-    logger.info("Closing database connections...")
+    logger.info("🛑 GitOps Platform API is shutting down...")
 
-# 3. Pass lifespan to the FastAPI instance
-app = FastAPI(lifespan=lifespan)
+# 3. Create the FastAPI instance ONCE with the lifespan
+app = FastAPI(
+    title="GitOps Platform API",
+    lifespan=lifespan
+)
 
 # 4. Your Health & Ready Checks
 @app.get("/health", tags=['Observability'])
